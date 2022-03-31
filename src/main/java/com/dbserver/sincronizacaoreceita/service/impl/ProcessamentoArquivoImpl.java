@@ -1,6 +1,7 @@
 package com.dbserver.sincronizacaoreceita.service.impl;
 
 import com.dbserver.sincronizacaoreceita.model.ContaModel;
+import com.dbserver.sincronizacaoreceita.service.GeraArquivoCSVService;
 import com.dbserver.sincronizacaoreceita.service.LerCSVService;
 import com.dbserver.sincronizacaoreceita.service.ProcessamentoArquivo;
 import com.dbserver.sincronizacaoreceita.service.ReceitaService;
@@ -31,6 +32,9 @@ public class ProcessamentoArquivoImpl implements ProcessamentoArquivo {
     @Autowired
     LerCSVService leituraService;
 
+    @Autowired
+    GeraArquivoCSVService geraArquivoCSVService;
+
 
     @Override
     public void processaArquivo(String caminhoArquivo) throws CsvRequiredFieldEmptyException, CsvDataTypeMismatchException, IOException, InterruptedException {
@@ -40,7 +44,7 @@ public class ProcessamentoArquivoImpl implements ProcessamentoArquivo {
 
             atualizarConta(contasRetornadas);
 
-            gravarArquivo(contasRetornadas);
+            geraArquivoCSVService.gravarArquivo(contasRetornadas);
         } catch (Exception e) {
             log.error("Não foi possível processar o arquivo. e={}", e.getMessage());
             throw e;
@@ -70,28 +74,5 @@ public class ProcessamentoArquivoImpl implements ProcessamentoArquivo {
         return mappingStrategy;
     }
 
-    private void gravarArquivo(List<ContaModel> contasProcessadas) throws IOException,
-            CsvRequiredFieldEmptyException,
-            CsvDataTypeMismatchException {
 
-        try {
-            Writer writer = new FileWriter(CSV_PATH);
-            StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(writer)
-//                .withSeparator(';')
-                    .withQuotechar(CSVWriter.NO_QUOTE_CHARACTER)
-                    //.withMappingStrategy(orderHeaderCsv())
-                    .build()
-                    ;
-
-            beanToCsv.write(contasProcessadas);
-            writer.close();
-        }
-        catch (CsvRequiredFieldEmptyException e) {
-            e.printStackTrace();
-        } catch (CsvDataTypeMismatchException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }

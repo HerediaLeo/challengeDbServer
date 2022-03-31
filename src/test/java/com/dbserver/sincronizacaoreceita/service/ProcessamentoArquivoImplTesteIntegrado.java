@@ -21,6 +21,7 @@ public class ProcessamentoArquivoImplTesteIntegrado {
     public static final String CAMINHO_ERRADO_CSV = "caminho-errado.csv";
 
 
+
     @Autowired
     private ProcessamentoArquivoImpl  service;
 
@@ -30,6 +31,9 @@ public class ProcessamentoArquivoImplTesteIntegrado {
     @Autowired
     private LerCSVService lerCSVService;
 
+    @Autowired
+    private GeraArquivoCSVService geraArquivoCSVService;
+
 
     @Test
     void deveriaProcessarArquivo() throws IOException, CsvRequiredFieldEmptyException, CsvDataTypeMismatchException, InterruptedException {
@@ -37,6 +41,8 @@ public class ProcessamentoArquivoImplTesteIntegrado {
         service.processaArquivo(CONTAS_CSV);
 
         var contaModels = lerCSVService.lerCSV(CONTAS_CSV);
+
+        geraArquivoCSVService.gravarArquivo(contaModels);
 
         assertNotNull(contaModels);
 

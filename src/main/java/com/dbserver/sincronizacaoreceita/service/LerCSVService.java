@@ -16,7 +16,6 @@ import java.util.List;
 public class LerCSVService {
 
     public List<ContaModel> lerCSV (String caminhoArquivo) throws IOException {
-        log.info("Log do leo");
         try {
             Reader reader = Files.newBufferedReader(Paths.get(caminhoArquivo));
 
