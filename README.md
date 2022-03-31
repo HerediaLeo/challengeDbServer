@@ -66,6 +66,8 @@ alteração.
 trabalha com milhões de registros pode-se tentar implementar o SPRING BATCH.
 
 - Melhorar a cobertura dos testes.
+   
+- Aplicar TDD para o as próximas melhorias.
 
 # Tecnologias Utilizadas
 
