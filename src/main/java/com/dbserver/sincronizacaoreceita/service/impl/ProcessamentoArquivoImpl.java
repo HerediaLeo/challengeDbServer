@@ -18,8 +18,6 @@ import java.util.List;
 @Slf4j
 public class ProcessamentoArquivoImpl implements ProcessamentoArquivo {
 
-    private static final String CSV_PATH = "./contasProcessadas.csv";
-
     @Autowired
     ReceitaService receitaservice;
 
@@ -34,6 +32,8 @@ public class ProcessamentoArquivoImpl implements ProcessamentoArquivo {
     public void processaArquivo(String caminhoArquivo) throws CsvRequiredFieldEmptyException, CsvDataTypeMismatchException, IOException, InterruptedException {
 
         try {
+            log.info("Comecando o processamento do arquivo.");
+
             var contasRetornadas = leituraService.lerCSV(caminhoArquivo);
 
             atualizarConta(contasRetornadas);
@@ -45,14 +45,14 @@ public class ProcessamentoArquivoImpl implements ProcessamentoArquivo {
         }
     }
 
-    private void atualizarConta(List<ContaModel> contasRetornadas) throws InterruptedException {
+    public void atualizarConta(List<ContaModel> contasRetornadas) throws InterruptedException {
         for (ContaModel conta : contasRetornadas){
 
             String contaFormatada = conta.getConta().replaceAll("-","");
-            conta.setResultado(receitaservice.atualizarConta(conta.getAgencia(),
-                                            contaFormatada,
-                                            conta.getSaldo(),
-                                            conta.getStatus()));
+
+            boolean verificador = receitaservice.atualizarConta(conta.getAgencia(),contaFormatada,conta.getSaldo(),conta.getStatus());
+
+            conta.setResultado(verificador);
         }
     }
 

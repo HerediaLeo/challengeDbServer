@@ -12,7 +12,6 @@ import java.util.List;
  * @author gabriel_stabel<gabriel_stabel@sicredi.com.br>
  */
 @Service
-@AllArgsConstructor
 public class ReceitaServiceImpl implements ReceitaService {
 
     @Override
