@@ -75,3 +75,10 @@ trabalha com milhões de registros pode-se tentar implementar o SPRING BATCH.
 - Open CSV
 - Junit e Mockito
 
+# Executando o Projeto
+
+Para executar o projeto será necessário o seguinte comando:
+   - java -jar caminhoAondeFoiSalvadoOJar/sincronizacaoreceita.jar caminhoAondeEstaOCsv/contas.csv
+
+Após a execução do comando o arquivo de contas processadas será criado
+no seu diretório C:

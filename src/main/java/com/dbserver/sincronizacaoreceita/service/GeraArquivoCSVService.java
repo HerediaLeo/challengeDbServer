@@ -19,7 +19,7 @@ import java.util.List;
 @Slf4j
 public class GeraArquivoCSVService {
 
-    private static final String CSV_PATH = "D:/contasProcessadas.csv";
+    private static final String CSV_PATH = "C:/contasProcessadas.csv";
 
     public void gravarArquivo(List<ContaModel> contasProcessadas) throws IOException,
             CsvRequiredFieldEmptyException,
