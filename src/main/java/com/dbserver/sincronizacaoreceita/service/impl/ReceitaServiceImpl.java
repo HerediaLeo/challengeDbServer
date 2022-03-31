@@ -1,6 +1,9 @@
 package com.dbserver.sincronizacaoreceita.service.impl;
 
 import com.dbserver.sincronizacaoreceita.service.ReceitaService;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,10 +11,14 @@ import java.util.List;
 /**
  * @author gabriel_stabel<gabriel_stabel@sicredi.com.br>
  */
+@Service
+@AllArgsConstructor
 public class ReceitaServiceImpl implements ReceitaService {
+
     @Override
     public boolean atualizarConta(String agencia, String conta, double saldo, String status) throws InterruptedException, RuntimeException {
         // Formato agencia: 0000
+
         if (agencia == null || agencia.length() != 4) {
             return false;
         }
