@@ -34,13 +34,15 @@ public class ProcessamentoArquivoImpl implements ProcessamentoArquivo {
         try {
             log.info("Comecando o processamento do arquivo.");
 
+            log.info("Caminho do ARQUIVO:" + caminhoArquivo );
+
             var contasRetornadas = leituraService.lerCSV(caminhoArquivo);
 
             atualizarConta(contasRetornadas);
 
             geraArquivoCSVService.gravarArquivo(contasRetornadas);
         } catch (Exception e) {
-            log.error("Não foi possível processar o arquivo. e={}", e.getMessage());
+            log.error("Nao foi possivel processar o arquivo. e={}", e.getMessage());
             throw e;
         }
     }

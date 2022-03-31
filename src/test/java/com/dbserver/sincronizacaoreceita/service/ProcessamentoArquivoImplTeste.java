@@ -76,9 +76,7 @@ public class ProcessamentoArquivoImplTeste {
 
         var conta = popularContaLeituraCSV();
 
-        boolean verificador = receitaService.atualizarConta(conta.getAgencia(), conta.getConta(), conta.getSaldo(), conta.getStatus());
-
-        assertTrue(verificador);
+        assertTrue(receitaService.atualizarConta(conta.getAgencia(), conta.getConta(), conta.getSaldo(), conta.getStatus()));
     }
 
     public ContaModel popularContaLeituraCSV(){

@@ -19,7 +19,7 @@ import java.util.List;
 @Slf4j
 public class GeraArquivoCSVService {
 
-    private static final String CSV_PATH = "./contasProcessadas.csv";
+    private static final String CSV_PATH = "D:/contasProcessadas.csv";
 
     public void gravarArquivo(List<ContaModel> contasProcessadas) throws IOException,
             CsvRequiredFieldEmptyException,
@@ -36,6 +36,9 @@ public class GeraArquivoCSVService {
 
             beanToCsv.write(contasProcessadas);
             writer.close();
+
+            log.info("Arquivo gerado no diretorio: " + CSV_PATH);
+
         }
         catch (Exception e){
             log.error("Não foi possível gravar o arquivo. e={}", e.getMessage());

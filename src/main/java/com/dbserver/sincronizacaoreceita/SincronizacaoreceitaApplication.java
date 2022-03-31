@@ -22,7 +22,12 @@ public class SincronizacaoreceitaApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        process.processaArquivo(CONTAS_CSV);
+        if(args.length > 0){
+            for (String caminhoArquivo: args) {
+                process.processaArquivo(caminhoArquivo);
+            }
+        }
+
     }
 
 }
