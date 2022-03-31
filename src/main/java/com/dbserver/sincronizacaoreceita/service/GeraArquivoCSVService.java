@@ -2,10 +2,12 @@ package com.dbserver.sincronizacaoreceita.service;
 
 import com.dbserver.sincronizacaoreceita.model.ContaModel;
 import com.opencsv.CSVWriter;
+import com.opencsv.bean.ColumnPositionMappingStrategy;
 import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.io.FileWriter;
@@ -14,6 +16,7 @@ import java.io.Writer;
 import java.util.List;
 
 @Service
+@Slf4j
 public class GeraArquivoCSVService {
 
     private static final String CSV_PATH = "./contasProcessadas.csv";
@@ -26,6 +29,7 @@ public class GeraArquivoCSVService {
             Writer writer = new FileWriter(CSV_PATH);
             StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(writer)
                 .withSeparator(';')
+                    //.withMappingStrategy(ordernaHeaderCsv())
                     .withQuotechar(CSVWriter.NO_QUOTE_CHARACTER)
                     .build()
                     ;
@@ -33,12 +37,20 @@ public class GeraArquivoCSVService {
             beanToCsv.write(contasProcessadas);
             writer.close();
         }
-        catch (CsvRequiredFieldEmptyException e) {
-            e.printStackTrace();
-        } catch (CsvDataTypeMismatchException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        catch (Exception e){
+            log.error("Não foi possível gravar o arquivo. e={}", e.getMessage());
+            throw e;
         }
+
+    }
+
+    private ColumnPositionMappingStrategy ordernaHeaderCsv(){
+        ColumnPositionMappingStrategy mappingStrategy = new ColumnPositionMappingStrategy();
+        mappingStrategy.setType(ContaModel.class);
+
+        String[] columns = new String[]
+                {"agencia","conta","saldo","status","resultado"};
+        mappingStrategy.setColumnMapping(columns);
+        return mappingStrategy;
     }
 }

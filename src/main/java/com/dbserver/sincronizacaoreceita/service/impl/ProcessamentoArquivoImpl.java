@@ -5,19 +5,13 @@ import com.dbserver.sincronizacaoreceita.service.GeraArquivoCSVService;
 import com.dbserver.sincronizacaoreceita.service.LerCSVService;
 import com.dbserver.sincronizacaoreceita.service.ProcessamentoArquivo;
 import com.dbserver.sincronizacaoreceita.service.ReceitaService;
-import com.opencsv.CSVWriter;
-import com.opencsv.bean.ColumnPositionMappingStrategy;
-import com.opencsv.bean.StatefulBeanToCsv;
-import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Writer;
 import java.util.List;
 
 @Service
@@ -61,18 +55,5 @@ public class ProcessamentoArquivoImpl implements ProcessamentoArquivo {
                                             conta.getStatus()));
         }
     }
-
-    private ColumnPositionMappingStrategy orderHeaderCsv(){
-        ColumnPositionMappingStrategy mappingStrategy = new ColumnPositionMappingStrategy();
-        mappingStrategy.setType(ContaModel.class);
-
-        String[] columns = new String[]
-                {"agencia","conta","saldo","status","resultado"};
-        mappingStrategy.setColumnMapping(columns);
-
-
-        return mappingStrategy;
-    }
-
 
 }

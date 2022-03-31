@@ -26,7 +26,7 @@ public class LerCSVService {
                     .parse();
         }
         catch (IOException e) {
-            System.out.println("Erro na leitura do arquivo");
+            log.error("Erro na leitura do arquivo");
             throw e;
         }
     }
